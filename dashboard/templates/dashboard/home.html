@@ -1,0 +1,37 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+<div class="content">
+	<!-- START CONTAINER FLUID -->
+	<div class="container-fluid flex full-height">
+
+		<!-- BEGIN PlACE PAGE CONTENT HERE -->
+		<div class="row">
+			<div class="col-sm-3 m-b-10">
+				<!-- BEGIN ACCOUNT BALANCES -->
+				{% include "dashboard/includes/accountbalances.html" %}
+				<!-- END ACCOUNT BALANCES -->
+			</div>
+			<div class="col-sm-5 m-b-10">
+				<!-- BEGIN TRANSACTIONS -->
+				{% include "dashboard/includes/transactions.html" %}
+				<!-- END TRANSACTIONS -->
+			</div>
+
+			<div class="col-sm-4 m-b-10">
+				<!-- BEGIN ASSETS -->
+				{% if userHasAssets %}
+      				{% include "dashboard/includes/assets.html"  %}
+	   			{% else %}
+				   <h1>Looks lonely here.  Add Assets to get started.</h1>
+       			{% endif %}
+				<!-- END ASSETS -->
+			</div>
+		</div>
+				
+		</div>
+	
+	</div>
+	  {% include "dashboard/includes/addAssets.html" %}       	
+</div>
+
+	{% endblock content %}

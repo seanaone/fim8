@@ -1,0 +1,26 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+
+
+<div class="content">
+	<!-- START CONTAINER FLUID -->
+	<div class="container-fluid container-fixed-lg">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="whenCanIretire">How Long To Payoff</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form method="POST" action="time_to_pay_off_result/">
+							{% load crispy_forms_tags %}
+							{% crispy time_to_pay_off_form time_to_pay_off_form.helper %}
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+{% endblock content %}

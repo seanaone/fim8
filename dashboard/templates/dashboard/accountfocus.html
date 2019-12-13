@@ -1,0 +1,119 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+<div class="content">
+	<!-- START JUMBOTRON -->
+	<div class="jumbotron" data-pages="parallax">
+		<div class=" container-fluid container-fixed-lg sm-p-l-0 sm-p-r-0">
+			<div class="inner">
+				{% comment %}
+				<!-- START BREADCRUMB -->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Barebone</a></li>
+					<li class="breadcrumb-item active">Layout</li>
+				</ol>
+				<!-- END BREADCRUMB --> {% endcomment %}
+			</div>
+		</div>
+	</div>
+	<!-- END JUMBOTRON -->
+	<!-- START CONTAINER FLUID -->
+	<div class="container-fluid container-fixed-lg">
+
+		<!-- START WIDGET widget_statTile-->
+		<div class="widget-10 card no-border bg-white no-margin widget-loader-bar">
+			<div class="padding-25">
+				<div class="pull-left">
+					<h2 class="text-success no-margin">Account</h2>
+				</div>
+				<div class="pull-right card-controls">
+					Total of all available Transactions
+					{% if totalOfTransactions < 0 %} <h4 class="no-margin p-b-5 text-danger semi-bold">
+						${{ totalOfTransactions }}
+					</h4>
+					{% else %}
+					<h4 class="no-margin p-b-5 text-success semi-bold">
+						${{ totalOfTransactions }}
+					</h4>
+					{% endif %}
+				</div>
+			</div>
+
+			<div class="card card-default m-b-0">
+				<div class="card-header " role="tab" id="heading{{account.id}}">
+					<h4 class="card-title">
+
+						<div class="col-sm-12">
+							<span class="font-montserrat fs-11 all-caps"> {{ account.name }}
+								{% if account.accountType == 'credit' or account.accountType == 'loan' %}
+								<h4 class="no-margin p-b-5 text-danger semi-bold">
+									$
+									{% if account.balanceCurrent == None %}
+									{{ account.balanceAvailable }}
+									{% else %}
+									{{ account.balanceCurrent }}
+									{% endif %}
+								</h4>
+								{% else %}
+								<h4 class="no-margin p-b-5 text-success semi-bold">
+									$
+									{% if account.balanceCurrent == None %}
+									{{ account.balanceAvailable }}
+									{% else %}
+									{{ account.balanceCurrent }}
+									{% endif %}
+								</h4>
+								{% endif %}
+								<div class="clearfix"></div>
+						</div>
+
+					</h4>
+				</div>
+				<div class="card-body">
+					<div class="row">
+						<div class="col-6 p-r-10">
+
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="pull-left">Available: </p>
+									<p class="pull-right bold">{{ account.balanceAvailable }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="pull-left">Current: </p>
+									<p class="pull-right bold">{{ account.balanceCurrent }}</p>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="pull-left">Limit</p>
+									<p class="pull-right bold">{{ account.limit }}</p>
+								</div>
+							</div>
+
+						</div>
+						<div class="col-6 p-l-10">
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="pull-left">Account Type</p>
+									<p class="pull-right bold">{{ account.accountType }}</p>
+								</div>
+							</div>
+
+						</div>
+						
+					</div>
+				</div>
+					{% include "dashboard/includes/transactions.html" with transactions=transactions totalOfTransactions=totalOfTransactions %}
+
+			</div>
+
+
+		</div>
+
+		<!-- END WIDGET -->
+	</div>
+
+</div>
+
+{% endblock content %}

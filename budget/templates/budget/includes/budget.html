@@ -1,0 +1,244 @@
+<!-- START WIDGET widget_statTile-->
+<div class="padding-25">
+	<div class="pull-left">
+		<h2 class="text-success no-margin">Budget and Goals</h2>
+		<br>
+		<br>
+	</div>
+</div>
+{% for goal in goals  %}
+
+<div class="card card-default m-b-0">
+
+
+
+<div class="card-header " role="tab">
+	<div class="card-controls">
+		<ul>
+			<li> <a type="button" class="btn-text pull-right" data-toggle="modal" href="#{{goal.id}}goal"
+					data-whatever="@mdo"><i class="fas fa-edit"></i></a>
+			</li>
+			<li>
+				<a type="button" class="btn-text pull-right" href="{% url 'deleteGoal' goalName=goal.nameOfGoal %}">
+					<i class="fas fa-trash-alt"></i></a>
+			</li>
+
+		</ul>
+	</div>
+	<h4 class="card-title">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="font-montserrat fs-11 all-caps ">
+					{% if goal.savingOrPayingoff == "True" %}
+					<p class="pull-left">Savings Goal ({{goal.account}}) </p>
+					{% else %}
+					<p class="pull-left">PayOff Goal ({{goal.account}})</p>
+					{% endif %}
+
+				</div>
+				<h4>{{goal.nameOfGoal}} </h4>
+			</div>
+		</div>
+			{% if goal.savingOrPayingoff == "True" and goal.account.balanceCurrent >= goal.goalAmount %}
+	<div class="row text-success">
+		<div class="col-sm-6">
+			<h4 class="text-success">GOAL COMPLETE </h4>
+		</div>
+	</div>
+	{% endif %}
+
+	{% if  goal.savingOrPayingoff != "True" and goal.account.balanceCurrent <= goal.goalAmount %}
+	<div class="row text-success">
+		<div class="col-sm-6">
+			<h4 class="text-success">GOAL COMPLETE </h4>
+		</div>
+	</div>
+	{% endif %}
+
+	</h4>
+
+
+	<div class="row">
+		<div class="col-sm-6">
+			<p class="pull-left">So Far: </p>
+			<p class="pull-right bold">${{goal.account.balanceCurrent}}</p>
+		</div>
+		<div class="col-sm-6">
+			<p class="pull-left">Goal: </p>
+			<p class="pull-right bold">$ {{goal.goalAmount}}</p>
+		</div>
+	</div>
+
+
+	<div class="clearfix"></div>
+</div>
+</div>
+
+
+<div class="modal fade" id="{{ goal.id }}goal" tabindex="-1" role="dialog" aria-labelledby="{{ goal.id }}goal"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="{{ goal.id }}goal">{{goal.nameOfGoal}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form method="POST" action="{% url 'editGoal' goalName=goal.nameOfGoal %}">
+					{% load crispy_forms_tags %}
+					{% crispy edit_goal_form edit_goal_form.helper %}
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endfor %}
+
+{% for category in budgetCategories  %}
+<div class="card card-default m-b-0">
+	<div class="card-header " role="tab">
+		<div class="card-controls">
+			<ul>
+				<li> <a type="button" class="btn-text pull-right" data-toggle="modal" href="#{{category.id}}"
+						data-whatever="@mdo"><i class="fas fa-edit"></i></a>
+				</li>
+				<li>
+					<a type="button" class="btn-text pull-right"
+						href="{% url 'deleteBudgetCategory' categoryName=category.category %}">
+						<i class="fas fa-trash-alt"></i></a>
+				</li>
+
+			</ul>
+		</div>
+		<h4 class="card-title">
+			<div class="row">
+				<div class="col-sm-10">
+					<div class="font-montserrat fs-11 all-caps ">
+						{{ category.category }}
+					</div>
+					<div class="clearfix"></div>
+				</div>
+				<div class="col-sm-2">
+
+				</div>
+			</div>
+
+		</h4>
+		{% if category.category == 'income' %}
+		<div class="row">
+			<div class="col-sm-6">
+				<p class="pull-left">obtained: </p>
+				<p class="pull-right bold">${{ totalIncome }}</p>
+			</div>
+			<div class="col-sm-6">
+				<p class="pull-left">expected: </p>
+				<p class="pull-right bold">${{ category.limit }}</p>
+			</div>
+		</div>
+		{% else %}
+		{% if category.spent > category.limit %}
+		<div class="row text-danger">
+			<div class="col-sm-6">
+				<p class="pull-left">spent: </p>
+				<p class="pull-right bold">${{ category.spent }}</p>
+			</div>
+			<div class="col-sm-6">
+				<p class="pull-left">limit: </p>
+				<p class="pull-right bold">${{ category.limit }}</p>
+			</div>
+		</div>
+		{% else %}
+		<div class="row text-info">
+			<div class="col-sm-6">
+				<p class="pull-left">spent: </p>
+				<p class="pull-right bold">${{ category.spent }}</p>
+			</div>
+			<div class="col-sm-6">
+				<p class="pull-left">limit: </p>
+				<p class="pull-right bold">${{ category.limit }}</p>
+			</div>
+		</div>
+		{% endif %}
+		{% endif %}
+		<div class="p-t-10 full-width">
+			<a class="btn-circle-arrow b-grey" data-toggle="collapse" data-parent="#accordion"
+				href="#collapse{{category.id}}trans" aria-expanded="false"
+				aria-controls="collapse{{category.id}}trans"><i class="fas fa-eye"></i></a>
+			<span class="hint-text small">Show more</span>
+			</a>
+		</div>
+	</div>
+
+	<div id="collapse{{category.id}}trans" class="collapse" role="tabcard" aria-labelledby="heading{{category.id}}trans"
+		style="">
+		<div class="card-body">
+			<div class="row">
+				<div class="col-12 p-r-10">
+
+					<div class="auto-overflow widget-11-2-table">
+
+						<table class="table table-condensed table-hover">
+
+							<tbody>
+								{% for transaction in category.transactions%}
+								<tr>
+
+
+									<td class="font-montserrat all-caps fs-12 w-50">
+										{{ transaction.name }} </td>
+									<td class="text-right hidden-lg">
+										<span class="hint-text small">dewdrops</span>
+									</td>
+									<td class="text-right b-r b-dashed b-grey w-25">
+										<span class="hint-text small">{{ transaction.datePosted  }}</span>
+									</td>
+									<td class="w-25">
+										{% if transaction.amount > 0 %} <span class="font-montserrat fs-18 text-danger">
+											${{ transaction.amount }}
+										</span>
+										{% else %}
+										<span
+											class="font-montserrat fs-18 text-success">${{ transaction.amount  }}</span>
+										{% endif %}
+
+									</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="{{ category.id }}" tabindex="-1" role="dialog" aria-labelledby="{{ category.id }}"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="{{ category.id }}">{{category.category}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+
+				<form method="POST" action="{% url 'editBudgetCategory' categoryName=category.category %}">
+					{% load crispy_forms_tags %}
+					{% crispy edit_category_form edit_category_form.helper %}
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endfor %}
+
+
+
+<!-- END WIDGET -->

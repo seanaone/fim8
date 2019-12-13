@@ -1,0 +1,111 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"> </script>
+
+
+{% block content %}
+<div class="row">
+	<div class="pull-left">
+		<h2 class="text-success no-margin">Monthly Spending</h2>
+		<br>
+		<br>
+	</div>
+    <div class="col-md-12 m-b-10">
+    <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<script>
+
+  {% block jquery %}
+  var transactions = {{transactions | safe}}
+  var outerRingCategories = {{outerRingCategories | safe}}
+  var outerRingAmounts = {{outerRingAmounts | safe}}
+
+  var innerRingCategories = {{innerRingCategories | safe}}
+  var categoriestotal = innerRingCategories.concat(outerRingCategories)
+  var innerRingAmounts = {{innerRingAmounts | safe}}
+  var defaultData = []
+
+  //allows a user to select a piece of the pie chart
+  function handleClick(evt) {
+    //piece of the pie chart selected
+    activeElement = chart.getElementAtEvent(evt);
+    //this is the position in the data ex: outerRingAmounts
+    //console.log(activeElement[0]._index);
+    //this is the position in the datasets ex: Expenses
+    // console.log(activeElement[0]._datasetIndex);
+    //this is the category that is clicked on
+    //console.log(chart.data.datasets[activeElement[0]._datasetIndex].labels[activeElement[0]._index]);
+    clickedCategory = chart.data.datasets[activeElement[0]._datasetIndex].labels[activeElement[0]._index];
+    return clickedCategory
+    //in json form
+    //console.log(activeElement);
+
+  }
+
+  //THIS IS GOING TO NEED A GET REQUEST SO THAT WHEN A CATEGORY IS CLICKED YOU CAN DRILL DOWN AND GET A PIE CHART
+  // OF THAT CATEGORY BROKEN DOWN BY MIDDLE CATEGORIES
+
+  //MAYBE THIS TEMPLATE SHOULD BE CALLED SPENDING AND BE ITS OWN PIECE OF THE BUDGET APP
+
+
+  var chart_config = {
+    type: 'doughnut',
+    data: {
+      datasets: [{
+        data: outerRingAmounts,
+        backgroundColor: [
+          'green',
+          'yellow',
+          'red',
+          'purple',
+          'blue',
+          'orange',
+          'teal',
+          'brown',
+          'gold',
+          'indigo',
+        ],
+        labels: outerRingCategories
+      }, {
+        data: innerRingAmounts,
+        backgroundColor: [
+          'black',
+          'grey',
+          'lightgrey'
+        ],
+        labels: innerRingCategories
+      }, ]
+    },
+    options: {
+      responsive: true,
+      legend: {
+        display: false,
+      },
+      onClick: handleClick,
+
+      tooltips: {
+        callbacks: {
+          label: function (tooltipItem, data) {
+            var dataset = data.datasets[tooltipItem.datasetIndex];
+            var index = tooltipItem.index;
+            return dataset.labels[index] + ': ' + dataset.data[index];
+          }
+        }
+      }
+    }
+  }
+
+
+  chart = new Chart(myChart, chart_config);
+
+
+  {% endblock %}
+</script>
+{% endblock content %}

@@ -1,0 +1,67 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+
+
+<div class="content">
+	<!-- START CONTAINER FLUID -->
+	<div class="container-fluid full-width">
+		<div class="modal-body">
+			<div
+				class="widget-11-2 card no-border card-condensed no-margin widget-loader-circle full-height d-flex flex-column">
+				<div class="card-header  top-right">
+					<div class="card-controls">
+						<ul>
+							<li><a data-toggle="refresh" class="card-refresh text-black" href="#"><i
+										class="card-icon card-icon-refresh"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="padding-25">
+					<div class="pull-left">
+						<h1 class="text-success no-margin">You can safely retire in {{numberOfYears}} years. </h1>
+					</div>
+					<br>
+							<h2>Starting With {{startingPrincipal}} </h2>
+							<h2>With An Average Annual Return of {{expectedAnnualReturn}}% </h2>
+							<h2>You will need {{requiredNestEgg}} in order to live off of {{annualExpenses}} a year </h2>
+					<div class="clearfix"></div>
+				</div>
+
+				<br>
+				<div class="auto-overflow widget-11-2-table">
+					<table class="table table-condensed table-hover" id="table-for-pdf">
+						<tbody>
+
+							{% for key,breakdown in breakdown.items %}
+							<tr>
+								<td class="font-montserrat all-caps fs-12 w-50">{{ key }}</td>
+								<td class="text-right hidden-lg">
+									<span class="hint-text small">dewdrops</span>
+								</td>
+								{% for key2,element in breakdown.items %}
+								<td class="text-right b-r b-dashed b-grey w-25">
+									<span class="hint-text small">{{key2}}</span>
+								</td>
+								<td class="w-25">
+									<span class="font-montserrat fs-18">{{element}}</span>
+								</td>
+								{% endfor %}
+							</tr>
+							{% endfor %}
+
+						</tbody>
+					</table>
+				</div>
+
+
+			</div>
+		</div>
+
+
+	</div>
+
+</div>
+
+
+{% endblock content %}

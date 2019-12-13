@@ -1,0 +1,63 @@
+	<nav class="page-sidebar" data-pages="sidebar">
+		<!-- BEGIN SIDEBAR MENU TOP TRAY CONTENT-->
+		<div class="sidebar-overlay-slide from-top" id="appMenu">
+
+		</div>
+		<!-- END SIDEBAR MENU TOP TRAY CONTENT-->
+		<!-- BEGIN SIDEBAR MENU HEADER-->
+		<div class="sidebar-header">
+			<img src="assets/img/logo_white.png" alt="mefi" class="brand" data-src="assets/img/logo_white.png" data-src-retina="assets/img/logo_white_2x.png"
+			 width="78" height="22">
+			<div class="sidebar-header-controls">
+				<button type="button" class="btn btn-primary btn-xs sidebar-slide-toggle btn-link m-l-20" data-pages-toggle="#appMenu"><i class="fa fa-angle-down fs-16"></i>
+				</button>
+				<!-- BEGIN LINK BUTTON-->
+				{% include "dashboard/includes/link.html" %}
+				<!-- END LINK BUTTON-->
+			</div>
+		</div>
+		<!-- END SIDEBAR MENU HEADER-->
+		<!-- START SIDEBAR MENU -->
+		<div class="sidebar-menu">
+			<!-- BEGIN SIDEBAR MENU ITEMS-->
+			<ul class="menu-items">
+				<li class="m-t-30">
+					<a href="{% url 'dashboard-home' %}" class="detailed">
+						<span class="title">Overview</span>
+						<span class="details">Balances & Transactions </span>
+					</a>
+					<span class="icon-thumbnail "><i class="fas fa-address-card"></i></span>
+				</li>
+				<li class="">
+					<a href="{% url 'budget-home' %}">
+						<span class="title">Budget</span>
+					</a>
+					<span class="icon-thumbnail "><i class="fas fa-file-invoice-dollar"></i></i></span>
+				</li>
+				<li class="">
+					<a href="javascript:;">
+						<span class="title">Calculators</span>
+						<span class=" arrow"></span>
+					</a>
+					<span class="icon-thumbnail"><i class="fas fa-calculator"></i></span>
+					<ul class="sub-menu">
+						<li class="">
+							<a href="{% url 'calculators-whenCanIRetireFormScreen' %}">When Can I retire?</a>
+							<span class="icon-thumbnail"><i class="fas fa-adjust"></i></span>
+						</li>
+						<li class="">
+							<a href="{% url 'calculators-timeToPayOffFormScreen' %}">How long to pay off</a>
+							<span class="icon-thumbnail"><i class="fas fa-adjust"></i></span>
+						</li>
+						<li class="">
+							<a href="{% url 'calculators-interestFormScreen' %}">Interest Calculator</a>
+							<span class="icon-thumbnail"><i class="fas fa-adjust"></i></span>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			<div class="clearfix"></div>
+		</div>
+		<!-- END SIDEBAR MENU -->
+	</nav>
+	<!-- END SIDEBAR -->

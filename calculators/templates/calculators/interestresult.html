@@ -1,0 +1,28 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+
+
+<div class="content">
+	<!-- START CONTAINER FLUID -->
+	<div class="container-fluid full-width">
+
+
+
+
+		<div class="modal-body">
+			<div class="widget-11-2 card no-border card-condensed no-margin widget-loader-circle full-height d-flex flex-column">
+				
+				<div class="padding-25">
+				<h1>Interest Calculation:</h1>
+					<h2>principal: {{principal}} </h2>
+					<h2>rate: {{rate}}%</h2>
+					<h2>over {{years}} years will be {{result}}</h2>
+
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+{% endblock content %}

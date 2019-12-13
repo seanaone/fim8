@@ -1,0 +1,20 @@
+/*
+
+* Override Pages default styles or create your own styles here
+
+*/
+
+.negative-amount
+{
+	color: red;
+}
+
+.positive-amount
+{
+	color: green;
+}
+
+.robinhood
+{
+	margin-top: 15%;
+}

@@ -1,0 +1,25 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+
+
+<div class="content">
+	<!-- START CONTAINER FLUID -->
+	<div class="container-fluid container-fixed-lg">
+
+		<!-- BEGIN PlACE PAGE CONTENT HERE -->
+		<div class="row">
+			<div class="col-sm-6 m-b-10">
+			 	{% if userHasBudget %}
+      				{% include "budget/includes/existingBudget.html"  %}
+	   			{% else %}
+           			{% include "budget/includes/createBudget.html" with new_budget_form=new_budget_form %}
+       			{% endif %}
+			</div>
+			 <div class="col-sm-5 m-b-10">
+				{% include "budget/includes/currentSpendingBreakDown.html" with outerRingAmounts=outerRingAmounts outerRingCategories=outerRingCategories innerRingAmounts=innerRingAmounts innerRingCategories=innerRingCategories transactions=transactions %}
+			</div>
+
+		</div>
+	</div>
+</div>
+{% endblock content %}

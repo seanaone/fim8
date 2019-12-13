@@ -1,0 +1,43 @@
+
+	<div class="padding-25">
+		<div class="pull-left">
+			<h2 class="text-success">Transactions</h2>
+
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+	<div class="widget-11-2 card no-border card-condensed no-margin widget-loader-circle full-height d-flex flex-column">
+
+	<div class="auto-overflow widget-11-2-table">
+		<table class="table table-condensed table-hover">
+
+			<tbody>
+				{% for transaction in transactions %}
+				<tr>
+
+
+					<td class="font-montserrat all-caps fs-10 w-50"> {{ transaction.name }} </td>
+					<td class="text-right b-r b-dashed b-grey w-40">
+						<span class="hint-text small">{{ transaction.datePosted  }}</span>
+					</td>
+					<td class="w-25">
+						{% if transaction.amount > 0 %} <span class="font-montserrat fs-18 text-danger">
+							${{ transaction.amount }}
+						</span>
+						{% else %}
+						<span class="font-montserrat fs-18 text-success">${{ transaction.amount  }}</span>
+						{% endif %}
+
+					</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+
+	<!-- START WIDGET widget_statTile-->
+
+	<!-- END WIDGET -->

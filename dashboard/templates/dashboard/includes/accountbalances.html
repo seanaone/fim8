@@ -1,0 +1,82 @@
+<!-- START WIDGET widget_statTile-->
+<div class="padding-25">
+	<div class="pull-left">
+		<h2 class="text-success no-margin">Accounts</h2>
+		<br>
+		<br>
+	</div>
+</div>
+<div class="widget-10 card no-border bg-white no-margin inner-content">
+	{% for account in accounts %}
+	<div class="card card-default m-b-0">
+		<div class="card-header " role="tab" id="heading{{account.id}}">
+			<h4 class="card-title">
+				<div class="col-sm-12">
+					<a class="font-montserrat fs-11 all-caps "
+						href="{% url 'focusOnAccount' focusAccountID=account.accountID %}"> {{ account.name }} <i
+							class="fa fa-chevron-right"></i></a>
+					{% if account.accountType == 'credit' or account.accountType == 'loan' %}
+					<h4 class="no-margin p-b-5 text-danger semi-bold">
+						$
+						{% if account.balanceCurrent == None %}
+						{{ account.balanceAvailable }}
+						{% else %}
+						{{ account.balanceCurrent }}
+						{% endif %}
+					</h4>
+					{% else %}
+					<h4 class="no-margin p-b-5 text-success semi-bold">
+						$
+						{% if account.balanceCurrent == None %}
+						{{ account.balanceAvailable }}
+						{% else %}
+						{{ account.balanceCurrent }}
+						{% endif %}
+					</h4>
+					{% endif %}
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="p-t-10 full-width">
+					<a class="btn-circle-arrow b-grey" data-toggle="collapse" data-parent="#accordion"
+						href="#collapse{{account.id}}" aria-expanded="false" aria-controls="collapse{{account.id}}"><i
+							class="fas fa-eye"></i></a>
+					<span class="hint-text small">Show more</span>
+					</a>
+				</div>
+
+			</h4>
+		</div>
+		<div id="collapse{{account.id}}" class="collapse" role="tabcard" aria-labelledby="heading{{account.id}}"
+			style="">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-6 p-r-10">
+
+						<div class="row">
+							<div class="col-lg-12">
+								<p class="pull-left">Available: </p>
+								<p class="pull-right bold">{{ account.balanceAvailable }}</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<p class="pull-left">Current: </p>
+								<p class="pull-right bold">{{ account.balanceCurrent }}</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<p class="pull-left">Limit</p>
+								<p class="pull-right bold">{{ account.limit }}</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+<!-- END WIDGET -->

@@ -1,0 +1,26 @@
+{% extends "dashboard/base.html" %}
+{% block content %}
+
+
+<div class="content">
+	<!-- START CONTAINER FLUID -->
+	<div class="container-fluid container-fixed-lg">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="whenCanIretire">When can I retire?</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form method="POST" action="when_can_i_retire_result/">
+							{% load crispy_forms_tags %}
+							{% crispy when_can_i_retire_form when_can_i_retire_form.helper %}
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+{% endblock content %}
