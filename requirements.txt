@@ -3,6 +3,6 @@ python_zillow==0.2.0
 django_mysql==2.4.1
 robin_stocks==0.9.9.5
 simplejson==3.16.0
-Django==2.2.5
+Django==2.2.24
 plaid==0.1.7
 django_crispy_forms==1.7.2
